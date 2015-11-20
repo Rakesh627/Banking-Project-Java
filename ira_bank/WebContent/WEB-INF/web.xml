@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.4">
+ <display-name>I.R.A bank</display-name>         
+<!--   
+<welcome-file-list>
+
+</welcome-file-list> -->
+
+
+
+ <servlet>  
+   <servlet-name>spring</servlet-name>
+    <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+    </servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/*.xml</param-value>
+    </init-param>
+     <init-param>
+        <param-name>mappedfile</param-name>
+        <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+
+<!-- Application Servlet Mapping  -->
+
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+
+ <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/config/*.xml</param-value>
+  </context-param>
+
+
+    <!-- Spring Security -->
+  <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  
+
+  <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+<!-- Security features -->
+<!--  1. Cross scripting prevention in forms (global level) -->
+ <context-param>
+      <param-name>defaultHtmlEscape</param-name>
+      <param-value>true</param-value>
+  </context-param>
+
+ <!-- 2. Session expiry (global level)--> 
+ <session-config>
+    <session-timeout>5</session-timeout>
+ </session-config>
+
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.gif</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.png</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.txt</url-pattern>
+  </servlet-mapping>
+    
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.csv</url-pattern>
+  </servlet-mapping>
+<!-- 
+ <listener>
+        <listener-class>
+          org.springframework.web.util.Log4jConfigListener
+       </listener-class>
+ -->
+
+<listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
+
+   
+ 
+</web-app>

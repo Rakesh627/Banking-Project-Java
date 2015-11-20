@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.2.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/tx 
+    	  http://www.springframework.org/schema/tx/spring-tx.xsd
+    	  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+	
+	<import resource="hibernate.cfg.xml"/>
+	
+   <!-- Moved it above -->	
+	<mvc:annotation-driven />
+	
+	<!-- Setting the cache control, back, refresh for all pages, not working though -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+                <property name="cacheSeconds" value="0"/>
+                <property name="useExpiresHeader" value="true"/>
+                <property name="useCacheControlHeader" value="true"/>
+                <property name="useCacheControlNoStore" value="true"/>
+            </bean>
+        </mvc:interceptor>
+   </mvc:interceptors>
+	
+  <tx:annotation-driven />
+	
+ <context:annotation-config /> 
+	
+	<!--  To scan the components -->
+    <context:component-scan base-package="edu.irabank"/>
+	
+	
+   <!-- custom bean which has the spring security methods -->
+<!--   <bean id="userDetailsService" class="edu.irabank.service.impl.UserDetailsServiceImpl"></bean> -->
+   
+   <!--   
+     <bean id="limitLoginServiceImpl" class="edu.irabank.service.impl.LimitLoginServiceImpl">
+     <property name="userDetailsService" ref="userDetailsService">
+     </property>
+     </bean>    -->
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="cacheSeconds" value="0" />
+	</bean>
+
+
+	
+	<bean id="iraBankExceptionController" class="edu.irabank.controller.IraBankExceptionController"></bean>
+	
+   <!-- custom bean which has the spring security methods -->
+  <bean id="userDetailsService" class="edu.irabank.service.impl.UserDetailsServiceImpl"></bean>
+   
+
+   <!-- Login Attempts -->  
+    <bean id="limitLoginServiceImpl" class="edu.irabank.service.impl.LimitLoginServiceImpl">
+        <property name="userDetailsService" ref="userDetailsService">
+    </property>
+    <property name="passwordEncoder" ref="encoder">
+    </property>
+    </bean>   
+  
+	<bean id="encoder"
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<bean id = "transactionManager" class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
+    	<property name = "sessionFactory" ref = "sessionFactory" />
+	</bean>	
+	
+	
+	
+</beans>    

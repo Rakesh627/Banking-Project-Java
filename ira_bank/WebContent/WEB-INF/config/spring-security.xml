@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.2.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/tx 
+    	  http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- disable-url-rewriting is to remove the session id from url -->
+	<!-- create-session never was written to solve 1st time login issue -->
+	<security:http auto-config="true"  use-expressions="true" disable-url-rewriting="true" access-denied-page="/accessDenied" create-session="never" >
+        <security:intercept-url pattern="/login*" access="permitAll"></security:intercept-url>
+          <security:intercept-url pattern="/userNameCheck*" access="permitAll"></security:intercept-url>
+            <security:intercept-url pattern="newuser*" access="permitAll"></security:intercept-url>
+        <security:intercept-url pattern="/logout*" access="permitAll"></security:intercept-url>
+        <security:intercept-url pattern="/home*" access="permitAll"></security:intercept-url>
+        <security:intercept-url pattern="/register*" access="permitAll"></security:intercept-url>
+        <security:intercept-url pattern="/accessDenied*" access="permitAll"></security:intercept-url>
+        <security:intercept-url pattern="/common*" access="permitAll"></security:intercept-url>
+         <security:intercept-url pattern="/loginfailed" access="permitAll"></security:intercept-url>
+          <security:intercept-url pattern="test*" access="permitAll"></security:intercept-url>
+          <security:intercept-url pattern="/Forgot*" access="permitAll"></security:intercept-url>
+           <security:intercept-url pattern="/OTP*" access="permitAll"></security:intercept-url>
+          <security:intercept-url pattern="/resetpassword*" access="permitAll"></security:intercept-url>
+         <security:intercept-url pattern="/**" requires-channel="https"/>		 
+        <!-- TODO -->
+      <!--   <security:intercept-url pattern="/listUsers" access="permitAll"></security:intercept-url> -->
+       
+        <!-- Resources -->
+        <security:intercept-url pattern="/js/**" access="permitAll" />
+		<security:intercept-url pattern="/images/**" access="permitAll" />
+		<security:intercept-url pattern="/fonts/**" access="permitAll" />
+		<security:intercept-url pattern="/css/**" access="permitAll" />
+		<security:intercept-url pattern="/less/**" access="permitAll" />
+        
+	<!-- 	Other Pages -->
+		<security:intercept-url pattern="/Welcome*" access="permitAll" ></security:intercept-url>
+		<security:intercept-url pattern="/index*" access="permitAll" ></security:intercept-url> 
+		<security:intercept-url pattern="/ExternalUsers/*" access="hasAnyRole('ROLE_MERCHANT', 'ROLE_USER')" />
+		<security:intercept-url pattern="/externalUsers/*" access="hasAnyRole('ROLE_MERCHANT', 'ROLE_USER')" />
+		<security:intercept-url pattern="/InternalUsers/*" access="hasAnyRole('ROLE_EMPLOYEE')" />
+		<security:intercept-url pattern="/internalUsers/*" access="hasAnyRole('ROLE_EMPLOYEE')" />
+		
+		<security:intercept-url pattern="/admin/*" access="hasAnyRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/user/*" access="hasAnyRole('ROLE_MERCHANT', 'ROLE_USER')" />
+		
+    <security:intercept-url pattern="/*" access="isAuthenticated()" /> 
+    <security:intercept-url pattern="/**" access="isAuthenticated()" /> 
+
+    <security:form-login login-processing-url="/j_spring_security_check" login-page="/login" default-target-url="/home" authentication-failure-url="/loginfailed"></security:form-login>
+
+    <security:logout logout-success-url="/logout" logout-url="/j_spring_security_logout" delete-cookies="JSESSIONID" invalidate-session="true"></security:logout>
+     
+    </security:http>
+   
+   <!-- custom bean which has the spring security methods -->
+<!--   <bean id="userDetailsService" class="edu.irabank.service.impl.UserDetailsServiceImpl"></bean> -->
+  
+ 
+  	
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="limitLoginServiceImpl">
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+</beans>

@@ -1,0 +1,137 @@
+body {
+
+
+-moz-background-size: cover;
+-webkit-background-size: cover;
+background-size: cover;
+background-position: top center !important;
+background-repeat: no-repeat !important;
+background-attachment: fixed;
+}
+
+.home-page-background-image {	
+	background-image: url(./images/backgroundimages.jpg);
+}
+
+.home-page-background-overlay {	
+	z-index: 10;
+	background-image: url(../images/Macbook-Pro-Iphone.png);
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.text-x-large {
+	font-size: x-large;
+}
+.text-xxx-large {
+	font-size: -webkit-xxx-large;
+	font-size: xxx-large;
+}
+.color-white {
+	color: white;
+}
+
+#get-started a {
+	text-decoration: none;
+	color: white;
+	padding: 20px;
+	border-top: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+}
+/* START GENERAL STYLES */
+.margin-top-02 {
+	margin-top: 2%;
+}
+
+.margin-top-05 {
+	margin-top: 5%;
+}
+
+.margin-top-05-neg {
+	margin-top: -5%;
+}
+
+.margin-bottom-02 {
+	margin-bottom: 2%;
+}
+
+.margin-bottom-05 {
+	margin-bottom: 5%;
+}
+
+.margin-bottom-60 {
+	margin-bottom: 60px;
+}
+
+.margin-left-02 {
+	margin-left: 2%;
+}
+
+.text-xxx-large {
+	font-size: -webkit-xxx-large;
+}
+
+.text-x-large {
+	font-size: x-large;
+}
+
+.color-white {
+	color: white;
+}
+
+.color-gray {
+	color: gray;
+}
+/* END OF GENERAL STYLES */
+
+/* START HOME PAGE */
+#footer {
+	z-index: 10;
+}
+
+#get-started a {
+	text-decoration: none;
+	color: white;
+	padding: 20px;
+	border-top: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+}
+
+/* END HOME PAGE */
+
+/* Overriding Bootstrap Styles */
+.modal-content {
+	border-radius: 0 !important;
+}
+.well {
+	border-radius: 0 !important;
+}
+
+.form-control {
+	border-radius: 0 !important;
+}
+
+.input-group-lg>.form-control {
+	border-radius: 0 !important;
+}
+
+.btn {
+	border-radius: 0 !important;
+	padding-left: 30px !important;
+	padding-right: 30px !important;	
+}
+
+.text-small-override {
+	font-size: small !important;
+}
+
+.padding-top-14 {
+	padding-top: 14px !important;
+} 
+/* END OF OVERRIDE */
